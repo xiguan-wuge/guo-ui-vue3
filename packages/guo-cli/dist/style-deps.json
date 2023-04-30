@@ -1,0 +1,16 @@
+{
+  "map": {
+    "badge": [],
+    "button": [],
+    "config-provider": [],
+    "icon": [
+      "badge"
+    ]
+  },
+  "squence": [
+    "badge",
+    "icon",
+    "button",
+    "config-provider"
+  ]
+}

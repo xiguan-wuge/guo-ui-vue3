@@ -1,0 +1,246 @@
+// @import '../style//base.less';
+@import '../style/css-variables.less';
+
+
+:root {
+  --g-button-mini-height: 24px;
+  --g-button-mini-padding: 0 var(--g-padding-base);
+  --g-button-mini-font-size: var(--g-font-size-xs);
+  --g-button-small-height: 32px;
+  --g-button-small-padding: 0 var(--g-padding-xs);
+  --g-button-small-font-size: var(--g-font-size-sm);
+  --g-button-normal-padding: 0 15px;
+  --g-button-normal-font-size: var(--g-font-size-md);
+  --g-button-large-height: 50px;
+  --g-button-default-height: 44px;
+  --g-button-default-line-height: 1.2;
+  --g-button-default-font-size: var(--g-font-size-lg);
+  --g-button-default-color: var(--g-text-color);
+  --g-button-default-background: var(--g-background-2);
+  --g-button-default-border-color: var(--g-gray-4);
+  --g-button-primary-color: var(--g-white);
+  --g-button-primary-background: var(--g-primary-color);
+  --g-button-primary-border-color: var(--g-primary-color);
+  --g-button-success-color: var(--g-white);
+  --g-button-success-background: var(--g-success-color);
+  --g-button-success-border-color: var(--g-success-color);
+  --g-button-danger-color: var(--g-white);
+  --g-button-danger-background: var(--g-danger-color);
+  --g-button-danger-border-color: var(--g-danger-color);
+  --g-button-warning-color: var(--g-white);
+  --g-button-warning-background: var(--g-warning-color);
+  --g-button-warning-border-color: var(--g-warning-color);
+  --g-button-border-width: var(--g-border-width);
+  --g-button-radius: var(--g-radius-md);
+  --g-button-round-radius: var(--g-radius-max);
+  --g-button-plain-background: var(--g-white);
+  --g-button-disabled-opacity: var(--g-disabled-opacity);
+  --g-button-icon-size: 1.2em;
+  --g-button-loading-icon-size: 20px;
+}
+
+.g-theme-dark {
+  --g-button-plain-background: transparent;
+}
+
+.g-button {
+  position: relative;
+  display: inline-block;
+  box-sizing: border-box;
+  height: var(--g-button-default-height);
+  margin: 0;
+  padding: 0;
+  font-size: var(--g-button-default-font-size);
+  line-height: var(--g-button-default-line-height);
+  text-align: center;
+  border-radius: var(--g-button-radius);
+  cursor: pointer;
+  transition: opacity var(--g-duration-fast);
+  -webkit-appearance: none;
+  -webkit-font-smoothing: auto;
+  outline: none;
+
+  &::before {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    background: var(--g-black);
+    border: inherit;
+    border-color: var(--g-black);
+    border-radius: inherit; /* inherit parent's border radius */
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    content: ' ';
+  }
+
+  &:active::before {
+    opacity: 0.1;
+  }
+
+  &--loading,
+  &--disabled {
+    &::before {
+      display: none;
+    }
+  }
+
+  &--default {
+    color: var(--g-button-default-color);
+    background: var(--g-button-default-background);
+    border: var(--g-button-border-width) solid
+      var(--g-button-default-border-color);
+  }
+
+  &--primary {
+    color: var(--g-button-primary-color);
+    background: var(--g-button-primary-background);
+    border: var(--g-button-border-width) solid
+      var(--g-button-primary-border-color);
+  }
+
+  &--success {
+    color: var(--g-button-success-color);
+    background: var(--g-button-success-background);
+    border: var(--g-button-border-width) solid
+      var(--g-button-success-border-color);
+  }
+
+  &--danger {
+    color: var(--g-button-danger-color);
+    background: var(--g-button-danger-background);
+    border: var(--g-button-border-width) solid
+      var(--g-button-danger-border-color);
+  }
+
+  &--warning {
+    color: var(--g-button-warning-color);
+    background: var(--g-button-warning-background);
+    border: var(--g-button-border-width) solid
+      var(--g-button-warning-border-color);
+  }
+
+  &--plain {
+    background: var(--g-button-plain-background);
+
+    &.g-button--primary {
+      color: var(--g-button-primary-background);
+    }
+
+    &.g-button--success {
+      color: var(--g-button-success-background);
+    }
+
+    &.g-button--danger {
+      color: var(--g-button-danger-background);
+    }
+
+    &.g-button--warning {
+      color: var(--g-button-warning-background);
+    }
+  }
+
+  &--large {
+    width: 100%;
+    height: var(--g-button-large-height);
+  }
+
+  &--normal {
+    padding: var(--g-button-normal-padding);
+    font-size: var(--g-button-normal-font-size);
+  }
+
+  &--small {
+    height: var(--g-button-small-height);
+    padding: var(--g-button-small-padding);
+    font-size: var(--g-button-small-font-size);
+  }
+
+  &__loading {
+    color: inherit;
+    font-size: inherit;
+
+    .g-loading__spinner {
+      color: currentColor;
+      width: var(--g-button-loading-icon-size);
+      height: var(--g-button-loading-icon-size);
+    }
+  }
+
+  &--mini {
+    height: var(--g-button-mini-height);
+    padding: var(--g-button-mini-padding);
+    font-size: var(--g-button-mini-font-size);
+
+    & + .g-button--mini {
+      margin-left: var(--g-padding-base);
+    }
+  }
+
+  &--block {
+    display: block;
+    width: 100%;
+  }
+
+  &--disabled {
+    cursor: not-allowed;
+    opacity: var(--g-button-disabled-opacity);
+  }
+
+  &--loading {
+    cursor: default;
+  }
+
+  &--round {
+    border-radius: var(--g-button-round-radius);
+  }
+
+  &--square {
+    border-radius: 0;
+  }
+
+  // align-items are ignored when flex container is a button in legacy safari
+  // see: https://bugs.webkit.org/show_bug.cgi?id=169700
+  &__content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+
+    // fix icon vertical align
+    // see: https://github.com/vant-ui/vant/issues/7617
+    &::before {
+      content: ' ';
+    }
+  }
+
+  &__icon {
+    font-size: var(--g-button-icon-size);
+    line-height: inherit;
+  }
+
+  &__icon + &__text,
+  &__loading + &__text,
+  &__text + &__icon,
+  &__text + &__loading {
+    margin-left: var(--g-padding-base);
+  }
+
+  &--hairline {
+    border-width: 0;
+
+    &::after {
+      border-color: inherit;
+      border-radius: calc(var(--g-button-radius) * 2);
+    }
+
+    &.g-button--round::after {
+      border-radius: var(--g-button-round-radius);
+    }
+
+    &.g-button--square::after {
+      border-radius: 0;
+    }
+  }
+}
