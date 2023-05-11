@@ -2,15 +2,17 @@
   "map": {
     "badge": [],
     "button": [],
+    "button-group": [],
     "config-provider": [],
     "icon": [
       "badge"
     ]
   },
-  "squence": [
+  "sequence": [
     "badge",
     "icon",
     "button",
+    "button-group",
     "config-provider"
   ]
 }

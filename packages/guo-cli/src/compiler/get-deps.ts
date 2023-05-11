@@ -15,6 +15,12 @@ function matchImports(code: string): string[] {
   return imports.filter((line) => !line.includes('import type'));
 }
 
+function matchExportFroms(code: string): string[] {
+  const exportFroms = code.match(EXPORT_FROM_RE) || []
+  // 排除类型声明文件
+  return exportFroms.filter((line) => !line.includes('export type'))
+}
+
 function getImportRelativePath(code: string) {
   const divider = code.includes('"') ? '"' : "'";
   return code.split(divider)[1];
@@ -87,4 +93,62 @@ export function getDeps(filePath: string) {
   paths.forEach(getDeps);
 
   return paths;
+}
+
+
+/**
+ * 1. 替换 .vue 后缀
+ * @example 'import App from "App.vue"' => 'import App from "App.xxx"'
+ * 
+ * 2. 如果使用了.mjs 或者 .cjs 后缀的文件，补充完整的import path
+ * @example import './foo' => import './foo.mjs'
+ * @example import './foo' => import './foo/index.mjs'
+ * 
+ * @param code 
+ * @param filePath 
+ * @param ext 
+ */
+export function replaceScriptImportExt(
+  code: string,
+  filePath: string,
+  ext: string
+) {
+
+  const imports = [...matchImports(code), ...matchExportFroms(code)]
+
+  const updateImport = (index: number, newImport: string) => {
+    code = code.replace(imports[index], newImport)
+    imports[index] = newImport
+  }
+
+  imports.forEach((line, index) => {
+    if(line.includes('.vue')) {
+      updateImport(index, line.replace('.vue', ext))
+    }
+  })
+
+  if(ext === '.mjs' || ext === '.cjs') {
+    imports.forEach((line, index) => {
+      const isStyleImport = STYLE_EXTS.some((ext) => line.includes(ext))
+      if(isStyleImport) return
+
+      const pathInfo = getPathByImport(line, filePath)
+      if(pathInfo) {
+        const relativePath = getImportRelativePath(line)
+
+        // 替换为 button/index.mjs
+        if(pathInfo.isIndex) {
+          const newLine = line.replace(
+            relativePath,
+            `${relativePath}/index${ext}`
+          )
+          updateImport(index, newLine)
+        } else {
+          const newLine = line.replace(relativePath, relativePath+ext)
+          updateImport(index, newLine)
+        }
+      }
+    })
+  }
+  return code
 }

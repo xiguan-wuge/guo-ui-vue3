@@ -59,7 +59,7 @@ function genEntry(params: {
 }) {
   const {ext, filename, component, baseFile} = params
   const deps = getDeps(component)
-  console.log('deps-------------------\n', deps);
+  // console.log('deps-------------------\n', deps);
   
   const depsPath = deps.map((dep) => getRelativePath(component, dep, ext))
 
@@ -72,12 +72,10 @@ function genEntry(params: {
       const compiledBaseFile = replaceExt(baseFile.replace(SRC_DIR, dir), ext)
       content += template(relative(outputDir, compiledBaseFile))
       content += '\n'
-      console.log('----------------baseFile: \n', content)
     }
 
     content += depsPath.map(template).join('\n')
-    content += content.replace(new RegExp('\\' + sep, 'g'), '/')
-    console.log('outputFile', outputFile, '\n   ', content);
+    content = content.replace(new RegExp('\\' + sep, 'g'), '/')
     
     fse.outputFileSync(outputFile, content)
   })

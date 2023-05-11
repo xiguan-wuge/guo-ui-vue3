@@ -104,18 +104,19 @@ export async function genStyleDepsMap() {
     components.forEach((component:string) => {
       map[component] = analyzeComponentDeps(components, component)
     })
+    // console.log('map: ', map);
 
-    const squence = getSequence(components, map)
+    const sequence = getSequence(components, map)
 
     Object.keys(map).forEach((key) => {
       map[key] = map[key].sort(
-        (a, b) => squence.indexOf(a) - squence.indexOf(b)
+        (a, b) => sequence.indexOf(a) - sequence.indexOf(b)
       )
     })
 
     smartOutputFile(
       STYLE_DEPS_JSON_FILE,
-      JSON.stringify({map, squence}, null, 2)
+      JSON.stringify({map, sequence}, null, 2)
     )
 
     resolve()
