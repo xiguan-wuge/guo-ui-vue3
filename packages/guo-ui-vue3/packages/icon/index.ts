@@ -1,4 +1,4 @@
-import { WithInstall, withInstall } from "../utils";
+import {  withInstall } from "../utils";
 import _Icon from './Icon'
 import './index.less'
 

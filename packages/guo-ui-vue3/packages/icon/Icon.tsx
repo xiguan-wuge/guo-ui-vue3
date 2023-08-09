@@ -1,5 +1,4 @@
 import {
-  inject,
   computed,
   defineComponent,
   type PropType,

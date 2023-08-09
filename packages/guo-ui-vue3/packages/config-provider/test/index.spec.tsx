@@ -1,6 +1,6 @@
 import { ref } from "vue";
 import {ConfigProvider} from '..'
-import {Icon} from '../../icon'
+import {Icon} from '../../../icon'
 import {later, mount} from '../../../test'
 import Popup from '../../popup'
 import { describe, test, expect } from "@jest/globals";
