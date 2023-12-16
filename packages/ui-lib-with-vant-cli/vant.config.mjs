@@ -1,16 +1,19 @@
 export default {
   // 组件库名称
-  name: 'demo-ui',
+  name: 'guo-ui',
   // 构建配置
   build: {
     site: {
-      publicPath: '/demo-ui/',
+      publicPath: '/guo-ui/',
     },
+    css: {
+      base: 'demo-assets/style/global.less'
+    }
   },
   // 文档站点配置
   site: {
     // 标题
-    title: 'Demo UI',
+    title: 'GUO UI',
     // 图标
     logo: 'https://fastly.jsdelivr.net/npm/@vant/assets/logo.png',
     // 描述
@@ -30,8 +33,8 @@ export default {
         title: '基础组件',
         items: [
           {
-            path: 'my-button',
-            title: 'MyButton 按钮',
+            path: 'button',
+            title: 'Button 按钮',
           },
         ],
       },
