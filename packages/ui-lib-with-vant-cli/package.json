@@ -1,0 +1,34 @@
+{
+  "name": "ui-lib-with-vant-cli",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vant-cli dev",
+    "test": "vant-cli test",
+    "lint": "vant-cli lint",
+    "build": "vant-cli build",
+    "prepare": "husky install",
+    "release": "vant-cli release",
+    "build-site": "vant-cli build-site"
+  },
+  "nano-staged": {
+    "*.md": "prettier --write",
+    "*.{ts,tsx,js,vue,less,scss}": "prettier --write",
+    "*.{ts,tsx,js,vue}": "eslint --fix"
+  },
+  "eslintConfig": {
+    "root": true,
+    "extends": ["@vant"]
+  },
+  "prettier": {
+    "singleQuote": true
+  },
+  "browserslist": ["Chrome >= 51", "iOS >= 10"],
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@vant/cli": "^6.2.0"
+  }
+}

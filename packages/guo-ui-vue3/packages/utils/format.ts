@@ -21,3 +21,11 @@ export const kebabCase = (str: string) =>
     .replace(/([A-Z])/g, '-$1')
     .toLowerCase()
     .replace(/^-/, '')
+
+export function padZero(num: number, targetLength = 2): string {
+  let str = num + ''
+  while(str.length < targetLength) {
+    str = '0' + str
+  }
+  return str
+}
