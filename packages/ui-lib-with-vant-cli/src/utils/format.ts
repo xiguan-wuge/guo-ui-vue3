@@ -1,5 +1,6 @@
 import {
-  type Numeric
+  type Numeric,
+  inBrowser
 } from './basic'
 
 import {isDef, isNumeric} from './validate'
@@ -28,4 +29,24 @@ export function padZero(num: number, targetLength = 2): string {
     str = '0' + str
   }
   return str
+}
+
+export function unitToPx(value: Numeric):number {
+  if(typeof value === 'number') {
+    return value
+  }
+
+  if(inBrowser) {
+    if(value.includes('rem')){
+      return convertRem(value)
+    }
+    if(value.includes('vw')) {
+      return convertVw(value)
+    }
+    if(value.includes('vh')) {
+      return convertVh(value)
+    }
+  }
+
+  return parseFloat(value)
 }
